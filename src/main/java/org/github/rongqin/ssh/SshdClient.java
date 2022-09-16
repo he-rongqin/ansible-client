@@ -1,6 +1,6 @@
 package org.github.rongqin.ssh;
 
-import com.sun.tools.javac.util.Assert;
+import cn.hutool.core.lang.Assert;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.sshd.client.SshClient;
@@ -53,7 +53,7 @@ public final class SshdClient {
 				// 通过主机IP、user、port 获取ssh session
 				this.session = sshClient.connect(sshConfig.getUsername(), sshConfig.getHost(), sshConfig.getPort()).verify().getSession();
 				this.session.addPasswordIdentity(sshConfig.getPassword());
-				AssertUtil.isTrue(this.session.auth().verify(10, TimeUnit.SECONDS).isSuccess(), "ssh "+sshConfig.getHost()+" 连接失败。");
+				Assert.isTrue(this.session.auth().verify(10, TimeUnit.SECONDS).isSuccess(), "ssh ["+sshConfig.getHost()+"] 连接失败。");
 			} catch (Exception e) {
 				log.error("ssh client open session error: {}", e);
 			}
